@@ -37,4 +37,14 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function projects()
+    {
+        return $this->belongsToMany(Project::class)->withTimestamps();
+    }
+
+    public function country()
+    {
+        return $this->belongsTo(Country::class);
+    }
 }
