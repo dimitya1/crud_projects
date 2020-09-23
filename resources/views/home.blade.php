@@ -17,7 +17,7 @@
             @auth
             <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">{{ auth()->user()->name }}</a>
             <div class="dropdown-menu">
-                <a class="dropdown-item" href="#">My profile</a>
+                <a class="dropdown-item" href="{{ route('profile') }}">My profile</a>
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="{{ route('logout') }}">Logout</a>
             </div>
@@ -27,7 +27,7 @@
             <div class="dropdown-menu">
                 <a class="dropdown-item" href="{{ route('login') }}">Login</a>
                 <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#">Register</a>
+                <a class="dropdown-item" href="{{ route('register') }}">Register</a>
              </div>
              @endguest
         </li>
@@ -41,7 +41,11 @@
             {{ Session::get('successful login') }}
         </div>
     @endif
-
+    @if(Session::has('successful register'))
+        <div class="alert alert-success" role="alert">
+            {{ Session::get('successful register') }}
+        </div>
+    @endif
 
 
     @forelse($projects as $project)
@@ -60,10 +64,6 @@
             </div>
         </div>
         <p class="text-center">
-            @can('update', $project)
-                {{--                <a href="{{ route('ad.create', ['id' => $ad->id]) }}" class="btn btn-warning">Edit</a>--}}
-                <a href="#" class="btn btn-warning">Edit</a>
-            @endcan
             @can('delete', $project)
                 <a href="#" class="btn btn-danger">Delete</a>
                 {{--                <a href="{{ route('ad.delete', ['id' => $ad->id]) }}" class="btn btn-danger">Delete</a>--}}
@@ -74,11 +74,16 @@
 
 
     @empty
-        <div class="alert alert-info" role="alert">
-            <p>You have not created any projects.</p>
-            <p>You have not got any linked projects.</p>
-            <p>Start creating projects now!</p>
-        </div>
+        <h2><p class="text-center">This website allows you to keep your projects and label together.</p></h2>
+        <br>
+        <h2><p class="text-center">Nobody will seed your projects or labels until you link them to user.</p></h2>
+        <br>
+        @guest
+        <h2><p class="text-center">Please, register or log in to start using our website.</p></h2>
+        <br>
+        @endguest
+        <h2><p class="text-center">Start creating projects with our website now!</p></h2>
+        <br>
     @endforelse
 
 @endsection

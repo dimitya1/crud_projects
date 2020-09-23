@@ -26,7 +26,6 @@ class CountryFactory extends Factory
     {
         return [
             'continent_id' => self::factoryForModel(Continent::class),
-            'code' => $this->faker->unique()->countryCode,
             'name' => $this->faker->unique()->country,
         ];
     }
