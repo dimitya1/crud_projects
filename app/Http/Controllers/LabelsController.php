@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Label;
 use App\Models\Project;
 use App\Models\User;
 use phpDocumentor\Reflection\Types\Collection;
 
 final class LabelsController
 {
-    public function __invoke()
+    public function get()
     {
         $projects = Project::whereHas('users', function($q) {
             $q->where('user_id', '=', auth()->id());
@@ -22,6 +23,16 @@ final class LabelsController
             }
         }
         return view('labels', ['labels' => $labels]);
+    }
+
+    public function delete($id = null)
+    {
+        $label = Label::find($id);
+
+        $label->delete();
+
+        return back()
+            ->with('successful label delete', "Label \"{$label->name}\" was successfully deleted!");
     }
 }
 

@@ -34,6 +34,12 @@
     </ul>
     <br>
 
+    @if(Session::has('successful label delete'))
+        <div class="alert alert-success" role="alert">
+            {{ Session::get('successful label delete') }}
+        </div>
+    @endif
+
     <ul class="list-group list-group-flush">
     @forelse($labels as $label)
         <li class="list-group-item">{{ $label->name }}</li>
@@ -43,9 +49,8 @@
 
         <p class="text-left">
             @can('delete', $label)
-                {{--                <a href="{{ route('ad.create', ['id' => $ad->id]) }}" class="btn btn-warning">Edit</a>--}}
-                <a href="#" class="btn btn-danger">Delete</a>
-             @endcan
+                <a href="{{ route('label.delete', ['id' => $label->id]) }}" class="btn btn-danger">Delete</a>
+            @endcan
         </p>
         <br>
         <br>
