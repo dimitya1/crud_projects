@@ -11,7 +11,7 @@
             <a class="nav-link" href="{{ route('projects') }}">My projects</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="#">My labels</a>
+            <a class="nav-link" href="{{ route('labels') }}">My labels</a>
         </li>
         <li class="nav-item dropdown">
             @auth
@@ -46,6 +46,11 @@
             {{ Session::get('successful register') }}
         </div>
     @endif
+    @if(Session::has('successful project delete'))
+        <div class="alert alert-success" role="alert">
+            {{ Session::get('successful project delete') }}
+        </div>
+    @endif
 
 
     @forelse($projects as $project)
@@ -65,8 +70,7 @@
         </div>
         <p class="text-center">
             @can('delete', $project)
-                <a href="#" class="btn btn-danger">Delete</a>
-                {{--                <a href="{{ route('ad.delete', ['id' => $ad->id]) }}" class="btn btn-danger">Delete</a>--}}
+                <a href="{{ route('project.delete', ['id' => $project->id]) }}" class="btn btn-danger">Delete</a>
             @endcan
         </p>
         <br>

@@ -1,6 +1,6 @@
 @extends('layout')
 
-@section('title', 'Register form')
+@section('title', 'Profile edit form')
 
 @section('content')
     <ul class="nav nav-tabs nav-fill">
@@ -27,20 +27,22 @@
             <div class="dropdown-menu">
                 <a class="dropdown-item" href="{{ route('login') }}">Login</a>
                 <div class="dropdown-divider"></div>
-                <a class="dropdown-item active" href="#">Register</a>
+                <a class="dropdown-item active" href="{{ route('register') }}">Register</a>
              </div>
              @endguest
         </li>
     </ul>
     <br>
 
-    @if(Session::has('duplicate email'))
+
+    @if(Session::has('password does not match'))
         <div class="alert alert-danger" role="alert">
-            {{ Session::get('duplicate email') }}
+            {{ Session::get('password does not match') }}
         </div>
     @endif
 
-    <form method="post" action="{{ route('register') }}">
+
+    <form method="post" action="{{ route('profile.edit') }}">
         @csrf
 
         <div class="form-group">
@@ -50,19 +52,17 @@
             </div>
             @enderror
             <label for="name">Full name</label>
-            <input type="name" name="name" class="form-control">
+            <input type="name" name="name" class="form-control"
+                   value="{{ old('title', $authUser->name) }}">
             <small id="nameHelp" class="form-text text-muted">We'll never share your personal data with anyone else.</small>
         </div>
 
-        <div class="form-group">
-            @error('email')
-            <div class="alert alert-danger" role="alert">
-                {{ $message }}
+        <fieldset disabled>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="text" id="disabledTextInput" class="form-control" placeholder="{{ old('email', $authUser->email) }}">
             </div>
-            @enderror
-            <label for="email">Email address</label>
-            <input type="email" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-        </div>
+        </fieldset>
 
         <div class="form-group">
             @error('country')
@@ -71,7 +71,8 @@
             </div>
             @enderror
             <label for="country">Country</label>
-            <input type="country" name="country" class="form-control">
+            <input type="country" name="country" class="form-control"
+            value="{{ old('title', $authUser->country->name) }}">
         </div>
 
         <div class="form-group">
@@ -80,21 +81,10 @@
                 {{ $message }}
             </div>
             @enderror
-            <label for="password">Password</label>
+            <label for="password">Please, enter your password</label>
             <input type="password" name="password" class="form-control" id="exampleInputPassword1">
-            <small id="passwordHelp" class="form-text text-muted">Your password must contain of uppercase and lowercase letters, at least 6 characters and at least one digit.</small>
         </div>
 
-        <div class="form-group">
-            @error('password_confirm')
-            <div class="alert alert-danger" role="alert">
-                {{ $message }}
-            </div>
-            @enderror
-            <label for="password_confirm">Confirm password</label>
-            <input type="password" name="password_confirm" class="form-control" id="exampleInputPassword1">
-        </div>
-
-        <button type="submit" class="btn btn-primary">Register</button>
+        <button type="submit" class="btn btn-primary">Confirm</button>
     </form>
 @endsection

@@ -11,7 +11,7 @@
             <a class="nav-link" href="{{ route('projects') }}">My projects</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="#">My labels</a>
+            <a class="nav-link" href="{{ route('labels') }}">My labels</a>
         </li>
         <li class="nav-item dropdown">
             @auth
@@ -34,6 +34,19 @@
     </ul>
     <br>
 
+
+    @if(Session::has('nothing to update'))
+        <div class="alert alert-warning" role="alert">
+            {{ Session::get('nothing to update') }}
+        </div>
+    @endif
+
+    @if(Session::has('success profile edit'))
+        <div class="alert alert-info" role="alert">
+            {{ Session::get('success profile edit') }}
+        </div>
+    @endif
+
     <div class="card bg-light mb-3" style="max-width: 40rem;">
         <div class="card-header">{{ $authUser->email }}</div>
         <div class="card-body">
@@ -47,4 +60,5 @@
         </div>
     </div>
 
+    <a href="{{ route('profile.edit') }}" class="btn btn-warning btn-lg">Edit</a>
 @endsection

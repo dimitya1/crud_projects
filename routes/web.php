@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\LabelsController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
@@ -29,8 +30,15 @@ Route::post('/register', [AuthController::class, 'registerCheck']);
 
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
-Route::get('/projects', ProjectsController::class)->name('projects');
+Route::get('/projects', [ProjectsController::class, 'get'])->name('projects');
+
+Route::get('/labels', LabelsController::class)->name('labels');
 
 Route::get('/profile', [ProfileController::class, 'get'])->name('profile');
 
+Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
+
+Route::post('/profile/edit', [ProfileController::class, 'editCheck']);
+
+Route::get('/delete_project/{id}', [ProjectsController::class, 'delete'])->name('project.delete');
 //Route::post('/edit/{id?}', '\\' . \App\Http\Controllers\AdController::class . '@save');

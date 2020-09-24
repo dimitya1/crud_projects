@@ -11,7 +11,7 @@
             <a class="nav-link" href="{{ route('projects') }}">My projects</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="#">My labels</a>
+            <a class="nav-link" href="{{ route('labels') }}">My labels</a>
         </li>
         <li class="nav-item dropdown">
             @auth

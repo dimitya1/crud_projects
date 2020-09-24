@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Project;
 use App\Models\User;
+use phpDocumentor\Reflection\Types\Collection;
 
 final class LabelsController
 {
@@ -13,7 +14,14 @@ final class LabelsController
             $q->where('user_id', '=', auth()->id());
         })->orderBy('created_at', 'desc')->get();
 
-        return view('projects', ['projects' => $projects]);
+        $labels = collect();
+
+        foreach($projects as $project) {
+            foreach ($project->labels as $label) {
+                $labels->prepend($label);
+            }
+        }
+        return view('labels', ['labels' => $labels]);
     }
 }
 

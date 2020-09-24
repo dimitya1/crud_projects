@@ -1,6 +1,6 @@
 @extends('layout')
 
-@section('title', 'My projects')
+@section('title', 'My labels')
 
 @section('content')
     <ul class="nav nav-tabs nav-fill">
@@ -8,10 +8,10 @@
             <a class="nav-link" href="{{ route('home') }}">Home page</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link active" href="#">My projects</a>
+            <a class="nav-link" href="{{ route('projects') }}">My projects</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="{{ route('labels') }}">My labels</a>
+            <a class="nav-link active" href="#">My labels</a>
         </li>
         <li class="nav-item dropdown">
             @auth
@@ -34,42 +34,28 @@
     </ul>
     <br>
 
-    @if(Session::has('successful project delete'))
-        <div class="alert alert-success" role="alert">
-            {{ Session::get('successful project delete') }}
+    <ul class="list-group list-group-flush">
+    @forelse($labels as $label)
+        <li class="list-group-item">{{ $label->name }}</li>
+        <div class="d-flex w-100 justify-content-between">
+            <small class="text-muted">{{ $label->created_at->diffForHumans() }}</small>
         </div>
-    @endif
 
-    @forelse($projects as $project)
-        <div class="card text-center" style="margin-bottom: 20px">
-            <div class="card-header">
-{{--                @if($project->users->first()-> == auth()->id())--}}
-{{--                    Yes--}}
-{{--                    @else No--}}
-{{--                    @endif--}}
-            </div>
-            <div class="card-body">
-                <p class="card-text">{{ \Illuminate\Support\Str::limit($project->name, 50) }}</p>
-            </div>
-            <div class="card-footer text-muted">
-                {{ 'Created ' . $project->created_at->diffForHumans() }} by {{ $project->users->first()->name }}
-            </div>
-        </div>
-        <p class="text-center">
-            @can('delete', $project)
-                <a href="{{ route('project.delete', ['id' => $project->id]) }}" class="btn btn-danger">Delete</a>
-            @endcan
+        <p class="text-left">
+            @can('delete', $label)
+                {{--                <a href="{{ route('ad.create', ['id' => $ad->id]) }}" class="btn btn-warning">Edit</a>--}}
+                <a href="#" class="btn btn-danger">Delete</a>
+             @endcan
         </p>
         <br>
         <br>
-
-
     @empty
         <div class="alert alert-info" role="alert">
-            <p>You have not created any projects.</p>
-            <p>You have not got any linked projects.</p>
-            <p>Start creating projects now!</p>
+            <p>You have not created any labels.</p>
+            <p>You have not got any linked labels.</p>
+            <p>Start creating labels now!</p>
         </div>
     @endforelse
+    </ul>
 
 @endsection
