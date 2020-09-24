@@ -49,7 +49,11 @@
 {{--                    @endif--}}
             </div>
             <div class="card-body">
-                <p class="card-text">{{ \Illuminate\Support\Str::limit($project->name, 50) }}</p>
+                <h5 class="card-title">{{ \Illuminate\Support\Str::limit($project->name, 50) }}</h5>
+                @foreach($project->labels as $label)
+                    <p class="card-text">{{ $label->name }}
+                        <a href="{{ route('label.delete', ['id' => $label->id]) }}" class="badge badge-danger">Delete</a></p>
+                @endforeach
             </div>
             <div class="card-footer text-muted">
                 {{ 'Created ' . $project->created_at->diffForHumans() }} by {{ $project->users->first()->name }}

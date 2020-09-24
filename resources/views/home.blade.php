@@ -62,7 +62,11 @@
 {{--                    @endif--}}
             </div>
             <div class="card-body">
-                <p class="card-text">{{ \Illuminate\Support\Str::limit($project->name, 50) }}</p>
+                <h5 class="card-title">{{ \Illuminate\Support\Str::limit($project->name, 50) }}</h5>
+                @foreach($project->labels as $label)
+                    <p class="card-text">{{ $label->name }}
+                        <a href="{{ route('label.delete', ['id' => $label->id]) }}" class="badge badge-danger">Delete</a></p>
+                @endforeach
             </div>
             <div class="card-footer text-muted">
                 {{ 'Created ' . $project->created_at->diffForHumans() }} by {{ $project->users->first()->name }}
@@ -78,16 +82,22 @@
 
 
     @empty
-        <h2><p class="text-center">This website allows you to keep your projects and label together.</p></h2>
-        <br>
-        <h2><p class="text-center">Nobody will seed your projects or labels until you link them to user.</p></h2>
-        <br>
-        @guest
-        <h2><p class="text-center">Please, register or log in to start using our website.</p></h2>
-        <br>
-        @endguest
-        <h2><p class="text-center">Start creating projects with our website now!</p></h2>
-        <br>
+        <div class="jumbotron">
+            <h1 class="display-4">This website allows you to keep your projects and label together.</h1>
+            <p class="lead">Nobody will seed your projects or labels until you link them to user.</p>
+            @guest
+            <p class="lead">Please, register or log in to start using our website.</p>
+            @endguest
+            <hr class="my-4">
+            <p>Start creating projects with our website now!</p>
+            @auth
+            <a class="btn btn-primary btn-lg" href="#" role="button">Create a project</a>
+            @endauth
+            @guest
+                <a class="btn btn-primary btn-lg" href="{{ route('register') }}" role="button">Register</a>
+                <a class="btn btn-primary btn-lg" href="{{ route('login') }}" role="button">Login</a>
+            @endguest
+        </div>
     @endforelse
 
 @endsection
