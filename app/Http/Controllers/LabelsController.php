@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Label;
 use App\Models\Project;
 use App\Models\User;
+use Illuminate\Support\Facades\Validator;
 use phpDocumentor\Reflection\Types\Collection;
 
 final class LabelsController
@@ -33,6 +34,35 @@ final class LabelsController
 
         return back()
             ->with('successful label delete', "Label \"{$label->name}\" was successfully deleted!");
+    }
+
+    public function create()
+    {
+        return view('label-form');
+    }
+
+    public function save()
+    {
+        $validator = Validator::make(
+            request()->all(),
+            [
+                'name' => 'required|min:3|max:55',
+            ]
+        );
+
+        if ($validator->fails()) {
+            return redirect()->route('label.create')
+                ->withErrors($validator->errors());
+        }
+
+        $label = new Label();
+        $label->name = request()->get('name');
+        $label->save();
+        $label->projects()->attach(107, ['is_creator' => 1]);
+
+        return redirect()
+            ->route('labels')
+            ->with('successful label create', "Label \"{$label->name}\" was successfully created!");
     }
 }
 

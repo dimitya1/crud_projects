@@ -34,11 +34,21 @@
     </ul>
     <br>
 
+
     @if(Session::has('successful project delete'))
         <div class="alert alert-success" role="alert">
             {{ Session::get('successful project delete') }}
         </div>
     @endif
+    @if(Session::has('successful project create'))
+        <div class="alert alert-success" role="alert">
+            {{ Session::get('successful project create') }}
+        </div>
+    @endif
+
+    <a href="{{ route('project.create') }}" class="btn btn-success btn-lg">Create a new project</a>
+    <br>
+    <br>
 
     @forelse($projects as $project)
         <div class="card text-center" style="margin-bottom: 20px">

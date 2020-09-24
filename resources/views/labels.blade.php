@@ -34,11 +34,23 @@
     </ul>
     <br>
 
+
     @if(Session::has('successful label delete'))
         <div class="alert alert-success" role="alert">
             {{ Session::get('successful label delete') }}
         </div>
     @endif
+    @if(Session::has('successful label create'))
+        <div class="alert alert-success" role="alert">
+            {{ Session::get('successful label create') }}
+        </div>
+    @endif
+
+
+    <a href="{{ route('label.create') }}" class="btn btn-success btn-lg">Create a new label</a>
+    <br>
+    <br>
+
 
     <ul class="list-group list-group-flush">
     @forelse($labels as $label)
