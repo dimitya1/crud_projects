@@ -49,12 +49,14 @@
 
     @auth
     <a href="{{ route('label.create') }}" class="btn btn-success btn-lg">Create a new label</a>
+    <a href="{{ route('label.link') }}" class="btn btn-info btn-lg">Link label to project</a>
     <br>
     <br>
     @endauth
 
 
     <ul class="list-group list-group-flush">
+
     @forelse($labels as $label)
         <li class="list-group-item">{{ $label->name }}</li>
         <div class="d-flex w-100 justify-content-between">

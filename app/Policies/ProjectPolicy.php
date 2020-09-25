@@ -64,7 +64,8 @@ class ProjectPolicy
      */
     public function delete(User $user, Project $project)
     {
-        return $project->users->where('pivot_is_creator', 0)->where('name', $user->name)->first()->pivot->is_creator;
+        return true;
+        //return $project->users->where('pivot_is_creator', 0)->where('name', $user->name)->first()->pivot->is_creator;
     }
 
     /**

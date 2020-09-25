@@ -20,12 +20,12 @@ class DatabaseSeeder extends Seeder
     {
         Continent::factory()->count(7)->create()->each(function ($continent) {
             Country::factory()->count(5)->create(['continent_id' => $continent->id])->each(function ($country) {
-                User::factory()->count(8)->create(['country_id' => $country->id])->each(function ($user) {
+                $users = User::factory()->count(8)->create(['country_id' => $country->id])->each(function ($user) {
                     Project::factory()->count(3)->create()->each(function ($project) use ($user) {
                         $project->users()->attach($user->id, ['is_creator' => rand(0, 1)]);
                         Label::factory()->count(2)->create()->each(function ($label) use ($user, $project) {
                             $label->projects()->attach($project->id);
-                            $label->users()->attach($user->id);
+                            $label->users()->attach($user->id, ['is_creator' => rand(0, 1)]);
                         });
                     });
                 });

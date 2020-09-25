@@ -74,7 +74,6 @@
                 <h5 class="card-title">{{ \Illuminate\Support\Str::limit($project->name, 50) }}</h5>
                 @foreach($project->labels as $label)
                     <p class="card-text">{{ $label->name }}
-                    {{ $label->projects->first()->pivot->is_creator ? 'You are creator' : 'No'}}
                 @can('delete', $label)
                         <a href="{{ route('label.delete', ['id' => $label->id]) }}" class="badge badge-danger">Delete</a></p>
                 @endcan

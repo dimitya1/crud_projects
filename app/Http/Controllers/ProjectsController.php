@@ -60,7 +60,8 @@ final class ProjectsController
     public function linkUser()
     {
         $projects = Project::whereHas('users', function($q) {
-            $q->where('user_id', '=', auth()->id());
+            $q->where('user_id', '=', auth()->id())
+            ->where('is_creator', '=', 1);
         })->orderBy('created_at', 'desc')->get();
 
         return view('link-user-form', ['projects' => $projects]);
@@ -105,11 +106,13 @@ final class ProjectsController
     public function linkLabel()
     {
         $projects = Project::whereHas('users', function($q) {
-            $q->where('user_id', '=', auth()->id());
+            $q->where('user_id', '=', auth()->id())
+            ->where('is_creator', '=', 1);
         })->orderBy('created_at', 'desc')->get();
 
         $labels = Label::whereHas('users', function($q) {
-            $q->where('user_id', '=', auth()->id());
+            $q->where('user_id', '=', auth()->id())
+                ->where('is_creator', '=', 1);
         })->orderBy('created_at', 'desc')->get();
 
         return view('link-label-form', ['projects' => $projects, 'labels' => $labels]);

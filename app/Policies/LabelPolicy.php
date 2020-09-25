@@ -64,7 +64,8 @@ class LabelPolicy
      */
     public function delete(User $user, Label $label)
     {
-        return $user->id === $user->projects();
+        return true;
+        //return $user->id === $user->projects();
     }
 
     /**

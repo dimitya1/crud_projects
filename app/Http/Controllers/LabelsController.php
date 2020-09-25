@@ -12,17 +12,10 @@ final class LabelsController
 {
     public function get()
     {
-        $projects = Project::whereHas('users', function($q) {
+        $labels = Label::whereHas('users', function($q) {
             $q->where('user_id', '=', auth()->id());
         })->orderBy('created_at', 'desc')->get();
 
-        $labels = collect();
-
-        foreach($projects as $project) {
-            foreach ($project->labels as $label) {
-                $labels->prepend($label);
-            }
-        }
         return view('labels', ['labels' => $labels]);
     }
 
@@ -58,6 +51,8 @@ final class LabelsController
         $label = new Label();
         $label->name = request()->get('name');
         $label->save();
+
+        auth()->user()->labels()->attach($label->id, ['is_creator' => 1]);
 
         return redirect()
             ->route('labels')

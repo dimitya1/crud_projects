@@ -16,6 +16,6 @@ class Project extends Model
 
     public function labels()
     {
-        return $this->belongsToMany(Label::class)->withPivot('is_creator')->withTimestamps();
+        return $this->belongsToMany(Label::class)->withTimestamps();
     }
 }
