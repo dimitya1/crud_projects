@@ -40,11 +40,16 @@ class User extends Authenticatable
 
     public function projects()
     {
-        return $this->belongsToMany(Project::class)->withTimestamps();
+        return $this->belongsToMany(Project::class)->withPivot('is_creator')->withTimestamps();
     }
 
     public function country()
     {
         return $this->belongsTo(Country::class);
+    }
+
+    public function labels()
+    {
+        return $this->belongsToMany(Label::class)->withPivot('is_creator')->withTimestamps();
     }
 }

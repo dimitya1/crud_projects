@@ -47,9 +47,11 @@
     @endif
 
 
+    @auth
     <a href="{{ route('label.create') }}" class="btn btn-success btn-lg">Create a new label</a>
     <br>
     <br>
+    @endauth
 
 
     <ul class="list-group list-group-flush">

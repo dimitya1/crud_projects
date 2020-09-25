@@ -45,35 +45,52 @@
             {{ Session::get('successful project create') }}
         </div>
     @endif
+    @if(Session::has('successful project link to user'))
+        <div class="alert alert-success" role="alert">
+            {{ Session::get('successful project link to user') }}
+        </div>
+    @endif
+    @if(Session::has('successful label link to project'))
+        <div class="alert alert-success" role="alert">
+            {{ Session::get('successful label link to project') }}
+        </div>
+    @endif
 
+
+    @auth
     <a href="{{ route('project.create') }}" class="btn btn-success btn-lg">Create a new project</a>
+    <a href="{{ route('user.link') }}" class="btn btn-warning btn-lg">Link project to user</a>
+    <a href="{{ route('label.link') }}" class="btn btn-info btn-lg">Link label to project</a>
     <br>
     <br>
+    @endauth
 
     @forelse($projects as $project)
         <div class="card text-center" style="margin-bottom: 20px">
             <div class="card-header">
-{{--                @if($project->users->first()-> == auth()->id())--}}
-{{--                    Yes--}}
-{{--                    @else No--}}
-{{--                    @endif--}}
+                <h3><span class="badge badge-secondary">{{ auth()->user()->projects->find($project->id)->pivot->is_creator ? 'You are creator of this project' : 'You are linked to this project'}}</span></h3>
             </div>
             <div class="card-body">
                 <h5 class="card-title">{{ \Illuminate\Support\Str::limit($project->name, 50) }}</h5>
                 @foreach($project->labels as $label)
                     <p class="card-text">{{ $label->name }}
+                    {{ $label->projects->first()->pivot->is_creator ? 'You are creator' : 'No'}}
+                @can('delete', $label)
                         <a href="{{ route('label.delete', ['id' => $label->id]) }}" class="badge badge-danger">Delete</a></p>
+                @endcan
                 @endforeach
             </div>
             <div class="card-footer text-muted">
-                {{ 'Created ' . $project->created_at->diffForHumans() }} by {{ $project->users->first()->name }}
+                @can('delete', $project)
+                    <a href="{{ route('project.delete', ['id' => $project->id]) }}" class="btn btn-danger">Delete</a>
+                @endcan
             </div>
         </div>
-        <p class="text-center">
-            @can('delete', $project)
-                <a href="{{ route('project.delete', ['id' => $project->id]) }}" class="btn btn-danger">Delete</a>
-            @endcan
-        </p>
+{{--        <p class="text-center">--}}
+{{--            @can('delete', $project)--}}
+{{--                <a href="{{ route('project.delete', ['id' => $project->id]) }}" class="btn btn-danger">Delete</a>--}}
+{{--            @endcan--}}
+{{--        </p>--}}
         <br>
         <br>
 

@@ -58,11 +58,10 @@ final class LabelsController
         $label = new Label();
         $label->name = request()->get('name');
         $label->save();
-        $label->projects()->attach(107, ['is_creator' => 1]);
 
         return redirect()
             ->route('labels')
-            ->with('successful label create', "Label \"{$label->name}\" was successfully created!");
+            ->with('successful label create', "Label \"{$label->name}\" was successfully created");
     }
 }
 

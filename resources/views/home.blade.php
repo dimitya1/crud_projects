@@ -86,7 +86,7 @@
             <h1 class="display-4">This website allows you to keep your projects and label together.</h1>
             <p class="lead">Nobody will seed your projects or labels until you link them to user.</p>
             @guest
-            <p class="lead">Please, register or log in to start using our website.</p>
+            <p class="lead">Please, register or log in to start using the website.</p>
             @endguest
             <hr class="my-4">
             <p>Start creating projects with our website now!</p>

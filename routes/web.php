@@ -51,4 +51,12 @@ Route::get('/delete_label/{id}', [LabelsController::class, 'delete'])->name('lab
 Route::get('/create_label', [LabelsController::class, 'create'])->name('label.create');
 
 Route::post('/create_label', [LabelsController::class, 'save']);
+
+Route::get('/link_user', [ProjectsController::class, 'linkUser'])->name('user.link');
+
+Route::post('/link_user', [ProjectsController::class, 'linkUserCheck']);
+
+Route::get('/link_label', [ProjectsController::class, 'linkLabel'])->name('label.link');
+
+Route::post('/link_label', [ProjectsController::class, 'linkLabelCheck']);
 //Route::post('/edit/{id?}', '\\' . \App\Http\Controllers\AdController::class . '@save');

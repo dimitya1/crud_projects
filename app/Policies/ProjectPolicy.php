@@ -53,7 +53,6 @@ class ProjectPolicy
      */
     public function update(User $user, Project $project)
     {
-        return $user->id === $project->users->first()->id;
     }
 
     /**
@@ -65,7 +64,7 @@ class ProjectPolicy
      */
     public function delete(User $user, Project $project)
     {
-        return $user->id === $project->users->first()->id;
+        return $project->users->where('pivot_is_creator', 0)->where('name', $user->name)->first()->pivot->is_creator;
     }
 
     /**

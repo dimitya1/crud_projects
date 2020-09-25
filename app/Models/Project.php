@@ -11,11 +11,11 @@ class Project extends Model
 
     public function users()
     {
-        return $this->belongsToMany(User::class)->withTimestamps();
+        return $this->belongsToMany(User::class)->withPivot('is_creator')->withTimestamps();
     }
 
     public function labels()
     {
-        return $this->belongsToMany(Label::class)->withTimestamps();
+        return $this->belongsToMany(Label::class)->withPivot('is_creator')->withTimestamps();
     }
 }

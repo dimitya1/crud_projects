@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateLabelProjectTable extends Migration
+class CreateLabelUserTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,11 @@ class CreateLabelProjectTable extends Migration
      */
     public function up()
     {
-        Schema::create('label_project', function (Blueprint $table) {
+        Schema::create('label_user', function (Blueprint $table) {
             $table->id();
             $table->foreignId('label_id');
-            $table->foreignId('project_id');
+            $table->foreignId('user_id');
+            $table->tinyInteger('is_creator')->default(0);
             $table->timestamps();
         });
     }
@@ -28,6 +29,6 @@ class CreateLabelProjectTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('label_project');
+        Schema::dropIfExists('label_user');
     }
 }
