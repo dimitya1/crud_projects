@@ -23,6 +23,7 @@ final class ProjectsController
     {
         $project = Project::find($id);
 
+        $project->users()->detach();
         $project->delete();
 
         return back()

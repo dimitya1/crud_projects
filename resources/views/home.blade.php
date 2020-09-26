@@ -56,7 +56,7 @@
         <hr class="my-4">
         <p>Start creating projects now!</p>
         @auth
-            <a class="btn btn-primary btn-lg" href="#" role="button">Create a project</a>
+            <a class="btn btn-primary btn-lg" href="{{ route('project.create') }}" role="button">Create a project</a>
         @endauth
         @guest
             <a class="btn btn-primary btn-lg" href="{{ route('register') }}" role="button">Register</a>
