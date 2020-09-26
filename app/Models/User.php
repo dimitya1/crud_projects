@@ -50,6 +50,6 @@ class User extends Authenticatable
 
     public function labels()
     {
-        return $this->belongsToMany(Label::class)->withPivot('is_creator')->withTimestamps();
+        return $this->hasMany(Label::class);
     }
 }

@@ -12,11 +12,18 @@ final class LabelsController
 {
     public function get()
     {
-        $labels = Label::whereHas('users', function($q) {
-            $q->where('user_id', '=', auth()->id());
-        })->orderBy('created_at', 'desc')->get();
+        $labels = collect();
+        foreach (auth()->user()->projects as $project) {
+            foreach ($project->labels as $label) {
+                $labels->prepend($label);
+            }
+        }
 
-        return view('labels', ['labels' => $labels]);
+        foreach (auth()->user()->labels as $label) {
+            $labels->prepend($label);
+        }
+
+        return view('labels', ['labels' => $labels->unique('id')]);
     }
 
     public function delete($id = null)
@@ -50,9 +57,8 @@ final class LabelsController
 
         $label = new Label();
         $label->name = request()->get('name');
+        $label->user_id = auth()->id();
         $label->save();
-
-        auth()->user()->labels()->attach($label->id, ['is_creator' => 1]);
 
         return redirect()
             ->route('labels')

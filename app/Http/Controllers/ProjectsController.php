@@ -110,10 +110,7 @@ final class ProjectsController
             ->where('is_creator', '=', 1);
         })->orderBy('created_at', 'desc')->get();
 
-        $labels = Label::whereHas('users', function($q) {
-            $q->where('user_id', '=', auth()->id())
-                ->where('is_creator', '=', 1);
-        })->orderBy('created_at', 'desc')->get();
+        $labels = auth()->user()->labels;
 
         return view('link-label-form', ['projects' => $projects, 'labels' => $labels]);
     }

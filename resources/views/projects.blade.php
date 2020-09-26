@@ -83,13 +83,11 @@
                 @can('delete', $project)
                     <a href="{{ route('project.delete', ['id' => $project->id]) }}" class="btn btn-danger">Delete</a>
                 @endcan
+                @cannot('delete', $project)
+                        {{ 'Created by ' . $project->users->first()->name }}
+                @endcannot
             </div>
         </div>
-{{--        <p class="text-center">--}}
-{{--            @can('delete', $project)--}}
-{{--                <a href="{{ route('project.delete', ['id' => $project->id]) }}" class="btn btn-danger">Delete</a>--}}
-{{--            @endcan--}}
-{{--        </p>--}}
         <br>
         <br>
 

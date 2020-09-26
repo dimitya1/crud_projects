@@ -59,9 +59,12 @@
 
     @forelse($labels as $label)
         <li class="list-group-item">{{ $label->name }}</li>
+
+        @cannot('delete', $label)
         <div class="d-flex w-100 justify-content-between">
-            <small class="text-muted">{{ $label->created_at->diffForHumans() }}</small>
+            <small class="text-muted">{{ 'Created by ' . \App\Models\User::find($label->user_id)->name}}</small>
         </div>
+        @endcannot
 
         <p class="text-left">
             @can('delete', $label)

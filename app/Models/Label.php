@@ -14,8 +14,8 @@ class Label extends Model
         return $this->belongsToMany(Project::class)->withTimestamps();
     }
 
-    public function users()
+    public function user()
     {
-        return $this->belongsToMany(User::class)->withPivot('is_creator')->withTimestamps();
+        return $this->belongsTo(User::class);
     }
 }
