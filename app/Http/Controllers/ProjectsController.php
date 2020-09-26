@@ -18,6 +18,7 @@ final class ProjectsController
         return view('projects', ['projects' => $projects]);
     }
 
+
     public function delete($id = null)
     {
         $project = Project::find($id);
@@ -28,10 +29,12 @@ final class ProjectsController
             ->with('successful project delete', "Project \"{$project->name}\" was successfully deleted!");
     }
 
+
     public function create()
     {
         return view('project-form');
     }
+
 
     public function save()
     {
@@ -57,6 +60,7 @@ final class ProjectsController
             ->with('successful project create', "Project \"{$project->name}\" was successfully created!");
     }
 
+
     public function linkUser()
     {
         $projects = Project::whereHas('users', function($q) {
@@ -66,6 +70,7 @@ final class ProjectsController
 
         return view('link-user-form', ['projects' => $projects]);
     }
+
 
     public function linkUserCheck()
     {
@@ -103,6 +108,7 @@ final class ProjectsController
             ->with('successful project link to user', "You have successfully linked your project to user " . $userToLink->name . '!');
     }
 
+
     public function linkLabel()
     {
         $projects = Project::whereHas('users', function($q) {
@@ -114,6 +120,7 @@ final class ProjectsController
 
         return view('link-label-form', ['projects' => $projects, 'labels' => $labels]);
     }
+
 
     public function linkLabelCheck()
     {

@@ -15,6 +15,7 @@ final class AuthController
         return view('login-form');
     }
 
+
     public function loginCheck()
     {
         $validator = Validator::make(
@@ -44,10 +45,8 @@ final class AuthController
 
         return redirect()
             ->route('home')
-            ->with('successful login', 'You have logged in successfully. Here are your projects.');
+            ->with('successful login', 'You have logged in successfully!');
     }
-
-
 
 
     public function logout()

@@ -37,7 +37,6 @@
 
     <form method="post" action="{{ route('label.create') }}">
         @csrf
-
         <div class="form-group">
             @error('name')
             <div class="alert alert-danger" role="alert">
@@ -50,4 +49,5 @@
 
         <button type="submit" class="btn btn-primary">Create</button>
     </form>
+
 @endsection

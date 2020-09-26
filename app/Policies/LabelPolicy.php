@@ -53,6 +53,7 @@ class LabelPolicy
      */
     public function update(User $user, Label $label)
     {
+        //
     }
 
     /**

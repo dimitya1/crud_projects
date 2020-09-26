@@ -13,18 +13,22 @@ final class LabelsController
     public function get()
     {
         $labels = collect();
-        foreach (auth()->user()->projects as $project) {
-            foreach ($project->labels as $label) {
+
+        if(auth()->user() !== null) {
+            foreach (auth()->user()->projects as $project) {
+                foreach ($project->labels as $label) {
+                    $labels->prepend($label);
+                }
+            }
+
+            foreach (auth()->user()->labels as $label) {
                 $labels->prepend($label);
             }
         }
 
-        foreach (auth()->user()->labels as $label) {
-            $labels->prepend($label);
-        }
-
         return view('labels', ['labels' => $labels->unique('id')]);
     }
+
 
     public function delete($id = null)
     {
@@ -36,10 +40,12 @@ final class LabelsController
             ->with('successful label delete', "Label \"{$label->name}\" was successfully deleted!");
     }
 
+
     public function create()
     {
         return view('label-form');
     }
+
 
     public function save()
     {

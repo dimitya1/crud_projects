@@ -55,6 +55,11 @@
             {{ Session::get('successful label link to project') }}
         </div>
     @endif
+    @error('not allowed')
+    <div class="alert alert-danger" role="alert">
+        {{ $message }}
+    </div>
+    @enderror
 
 
     @auth
@@ -64,6 +69,7 @@
     <br>
     <br>
     @endauth
+
 
     @forelse($projects as $project)
         <div class="card text-center" style="margin-bottom: 20px">
@@ -90,8 +96,6 @@
         </div>
         <br>
         <br>
-
-
     @empty
         <div class="alert alert-info" role="alert">
             <p>You have not created any projects.</p>
@@ -99,5 +103,4 @@
             <p>Start creating projects now!</p>
         </div>
     @endforelse
-
 @endsection

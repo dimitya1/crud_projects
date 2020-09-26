@@ -45,6 +45,11 @@
             {{ Session::get('successful label create') }}
         </div>
     @endif
+    @error('not allowed')
+    <div class="alert alert-danger" role="alert">
+        {{ $message }}
+    </div>
+    @enderror
 
 
     @auth

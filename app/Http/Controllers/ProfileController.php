@@ -21,6 +21,7 @@ final class ProfileController
         return view('profile', ['authUser' => $authUser, 'labelsCount' => $labelsCount]);
     }
 
+
     public function edit() {
         $authUser = User::find(auth()->id());
 

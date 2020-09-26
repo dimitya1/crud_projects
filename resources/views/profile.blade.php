@@ -40,12 +40,12 @@
             {{ Session::get('nothing to update') }}
         </div>
     @endif
-
     @if(Session::has('success profile edit'))
         <div class="alert alert-info" role="alert">
             {{ Session::get('success profile edit') }}
         </div>
     @endif
+
 
     <div class="card bg-light mb-3" style="max-width: 40rem;">
         <div class="card-header">{{ $authUser->email }}</div>

@@ -53,6 +53,7 @@ class ProjectPolicy
      */
     public function update(User $user, Project $project)
     {
+        //
     }
 
     /**

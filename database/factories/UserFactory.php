@@ -25,7 +25,6 @@ class UserFactory extends Factory
     {
         return [
             'country_id' => self::factoryForModel(Country::class),
-            'is_admin' => 0,
             'name' => $this->faker->name,
             'email' => $this->faker->unique()->safeEmail,
             'email_verified_at' => now(),

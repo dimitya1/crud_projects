@@ -34,11 +34,13 @@
     </ul>
     <br>
 
+
     @if(Session::has('duplicate email'))
         <div class="alert alert-danger" role="alert">
             {{ Session::get('duplicate email') }}
         </div>
     @endif
+
 
     <form method="post" action="{{ route('register') }}">
         @csrf
