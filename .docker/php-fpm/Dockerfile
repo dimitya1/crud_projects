@@ -4,6 +4,8 @@ RUN apt update
 
 RUN apt install libpq-dev -y
 
+RUN apt-get install zip unzip
+
 RUN apt-get install -qq git curl libmcrypt-dev libjpeg-dev libpng-dev libfreetype6-dev libbz2-dev libzip-dev
 
 RUN apt-get clean
